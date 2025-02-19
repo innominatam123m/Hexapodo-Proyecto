@@ -1,0 +1,46 @@
+void loop() {
+  // Verificar si hay datos disponibles en el Bluetooth
+  if (Bluetooth.available() > 0) {
+    int Received = Bluetooth.read(); // Leer el byte recibido
+
+    // Cambiar el modo según el comando recibido
+    if (Received == 0) {
+      MODE = 0; // Home position
+      resetVariables();
+    } else if (Received == 1) {
+      MODE = 1; // Move Forward
+    } else if (Received == 2) {
+      MODE = 2; // Move Backwards
+    } else if (Received == 3) {
+      MODE = 3; // Move Right
+    } else if (Received == 4) {
+      MODE = 4; // Move Left
+    } else if (Received == 5) {
+      MODE = 5; // Rotate Left
+    } else if (Received == 6) {
+      MODE = 6; // Rotate Right
+    } else if (Received >= 12) {
+      // Ajustar la velocidad (delay) según el valor recibido
+      DELAY = map(Received, 15, 100, 5, 80); // Mapear el valor a un delay entre 5 y 80 ms
+    }
+  }
+
+  // Ejecutar el movimiento según el modo actual
+  if (MODE == 0) {
+    set_home_pos();
+  } else if (MODE == 1) {
+    move_frwd();
+  } else if (MODE == 2) {
+    move_bwd();
+  } else if (MODE == 3) {
+    move_right();
+  } else if (MODE == 4) {
+    move_left();
+  } else if (MODE == 5) {
+    rotate_left();
+  } else if (MODE == 6) {
+    rotate_right();
+  }
+
+  delay(DELAY); // Controlar la velocidad del movimiento
+}
