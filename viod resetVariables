@@ -1,0 +1,12 @@
+void resetVariables() {
+  // Reiniciar todas las variables de movimiento
+  Impair_start = false;
+  FM1 = 0;
+  FM2 = 0;
+  FM3 = 0;
+  FM4 = 0;
+  FM5 = 0;
+  FM6 = 0;
+  FM7 = 0;
+  FM8 = 0;
+}
