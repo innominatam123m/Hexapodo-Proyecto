@@ -1,0 +1,148 @@
+void rotate_right() {
+  // Impair Lift 10 deg
+  if (FM1 <= 10) {
+    for (int i = 0; i < 6; i += 2) { // Patas impares (1, 3, 5)
+      int newAngleMedio = angulosMedios[i] - FM1;
+      int newAnglePiso = angulosPiso[i] - FM1;
+
+      // Aplicar restricciones para servos medios
+      if (newAngleMedio < angulosMinimosMedios[i]) {
+        newAngleMedio = angulosMinimosMedios[i];
+      }
+      servosMedios[i].write(newAngleMedio);
+
+      // Aplicar restricciones para servos de piso
+      if (newAnglePiso > angulosMaximosPiso[i]) {
+        newAnglePiso = angulosMaximosPiso[i];
+      }
+      servosPiso[i].write(newAnglePiso);
+    }
+    FM1++;
+  }
+
+  // Impair rotate forward 30 deg
+  if (FM2 <= 30) {
+    for (int i = 0; i < 6; i += 2) { // Patas impares (1, 3, 5)
+      int newAngleSuperior = angulosSuperiores[i] + FM2;
+
+      // Aplicar restricciones para servos superiores
+      servosSuperiores[i].write(newAngleSuperior);
+    }
+    FM2++;
+  }
+
+  // Impair touch ground -10 deg
+  if (FM2 > 20 && FM3 <= 10) {
+    for (int i = 0; i < 6; i += 2) { // Patas impares (1, 3, 5)
+      int newAngleMedio = angulosMedios[i] + FM3;
+      int newAnglePiso = angulosPiso[i] + FM3;
+
+      // Aplicar restricciones para servos medios
+      if (newAngleMedio < angulosMinimosMedios[i]) {
+        newAngleMedio = angulosMinimosMedios[i];
+      }
+      servosMedios[i].write(newAngleMedio);
+
+      // Aplicar restricciones para servos de piso
+      if (newAnglePiso > angulosMaximosPiso[i]) {
+        newAnglePiso = angulosMaximosPiso[i];
+      }
+      servosPiso[i].write(newAnglePiso);
+    }
+    FM3++;
+  }
+
+  // Impair rotate backward -30 deg
+  if (FM2 >= 30) {
+    for (int i = 0; i < 6; i += 2) { // Patas impares (1, 3, 5)
+      int newAngleSuperior = angulosSuperiores[i] - FM4;
+
+      // Aplicar restricciones para servos superiores
+      servosSuperiores[i].write(newAngleSuperior);
+    }
+    FM4++;
+    Impair_start = true;
+  }
+
+  if (FM4 >= 30) {
+    FM1 = 0;
+    FM2 = 0;
+    FM3 = 0;
+    FM4 = 0;
+  }
+
+  // Pair movement
+  if (Impair_start) {
+    // Pair Lift 10 deg
+    if (FM5 <= 10) {
+      for (int i = 1; i < 6; i += 2) { // Patas pares (2, 4, 6)
+        int newAngleMedio = angulosMedios[i] - FM5;
+        int newAnglePiso = angulosPiso[i] - FM5;
+
+        // Aplicar restricciones para servos medios
+        if (newAngleMedio < angulosMinimosMedios[i]) {
+          newAngleMedio = angulosMinimosMedios[i];
+        }
+        servosMedios[i].write(newAngleMedio);
+
+        // Aplicar restricciones para servos de piso
+        if (newAnglePiso > angulosMaximosPiso[i]) {
+          newAnglePiso = angulosMaximosPiso[i];
+        }
+        servosPiso[i].write(newAnglePiso);
+      }
+      FM5++;
+    }
+
+    // Pair rotate forward 30 deg
+    if (FM6 <= 30) {
+      for (int i = 1; i < 6; i += 2) { // Patas pares (2, 4, 6)
+        int newAngleSuperior = angulosSuperiores[i] + FM6;
+
+        // Aplicar restricciones para servos superiores
+        servosSuperiores[i].write(newAngleSuperior);
+      }
+      FM6++;
+    }
+
+    // Pair touch ground -10 deg
+    if (FM6 > 20 && FM7 <= 10) {
+      for (int i = 1; i < 6; i += 2) { // Patas pares (2, 4, 6)
+        int newAngleMedio = angulosMedios[i] + FM7;
+        int newAnglePiso = angulosPiso[i] + FM7;
+
+        // Aplicar restricciones para servos medios
+        if (newAngleMedio < angulosMinimosMedios[i]) {
+          newAngleMedio = angulosMinimosMedios[i];
+        }
+        servosMedios[i].write(newAngleMedio);
+
+        // Aplicar restricciones para servos de piso
+        if (newAnglePiso > angulosMaximosPiso[i]) {
+          newAnglePiso = angulosMaximosPiso[i];
+        }
+        servosPiso[i].write(newAnglePiso);
+      }
+      FM7++;
+    }
+
+    // Pair rotate backward -30 deg
+    if (FM6 >= 30) {
+      for (int i = 1; i < 6; i += 2) { // Patas pares (2, 4, 6)
+        int newAngleSuperior = angulosSuperiores[i] - FM8;
+
+        // Aplicar restricciones para servos superiores
+        servosSuperiores[i].write(newAngleSuperior);
+      }
+      FM8++;
+    }
+
+    if (FM8 >= 30) {
+      Impair_start = false;
+      FM5 = 0;
+      FM6 = 0;
+      FM7 = 0;
+      FM8 = 0;
+    }
+  }
+} // End Rotate Right
