@@ -11,3 +11,4 @@ void setup() {
 
   // Alinear las patas una por una con los ángulos definidos
   alinearPatasUnaPorUna();
+}
