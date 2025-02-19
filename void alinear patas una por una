@@ -1,0 +1,27 @@
+void alinearPatasUnaPorUna() {
+  for (int i = 0; i < 6; i++) {
+    // Mover los servos de la pata actual a los ángulos definidos con restricciones
+    servosSuperiores[i].write(angulosSuperiores[i]);  // Servo superior
+
+    // Restricción para los servos medios (no pueden bajar más del ángulo mínimo)
+    if (angulosMedios[i] < angulosMinimosMedios[i]) {
+      angulosMedios[i] = angulosMinimosMedios[i];
+    }
+    servosMedios[i].write(angulosMedios[i]);          // Servo medio
+
+    // Restricción para los servos de piso (no pueden subir más del ángulo máximo)
+    if (angulosPiso[i] > angulosMaximosPiso[i]) {
+      angulosPiso[i] = angulosMaximosPiso[i];
+    }
+    servosPiso[i].write(angulosPiso[i]);              // Servo de piso
+
+    // Mensaje para indicar qué pata se está alineando
+    Serial.print("Alineando pata ");
+    Serial.println(i + 1);
+
+    // Esperar 2 segundos para observar el movimiento
+    delay(2000);
+  }
+
+  Serial.println("Todas las patas están alineadas.");
+}
