@@ -1,0 +1,7 @@
+void set_home_pos() {
+  for (int i = 0; i < 6; i++) {
+    servosSuperiores[i].write(angulosSuperiores[i]);
+    servosMedios[i].write(angulosMedios[i]);
+    servosPiso[i].write(angulosPiso[i]);
+  }
+}
