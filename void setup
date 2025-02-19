@@ -1,0 +1,13 @@
+void setup() {
+  Serial.begin(9600);
+  Bluetooth.begin(9600); // Iniciar comunicación Bluetooth
+
+  // Asignar cada pin a su respectivo servo
+  for (int i = 0; i < 6; i++) {
+    servosSuperiores[i].attach(pinesSuperiores[i]);
+    servosMedios[i].attach(pinesMedios[i]);
+    servosPiso[i].attach(pinesPiso[i]);
+  }
+
+  // Alinear las patas una por una con los ángulos definidos
+  alinearPatasUnaPorUna();
